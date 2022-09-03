@@ -1,29 +1,58 @@
 <template>
 	<div
 		class="entry-container mb-3 pointer p-2"
-		@click="$router.push({
-			name: 'daybook-entry-selected',
-			params: { id: 10 }
-		})"
+		@click="
+			$router.push({
+				name: 'daybook-entry-selected',
+				params: { id: entry.id },
+			})
+		"
 	>
 		<div class="entry-container-title d-flex">
-			<span class="text-success fs-5 fw-bold">24</span>
-			<span class="mx-1 fs-5">Agosto</span>
-			<span class="mx-2 fw-light">2022, Miércoles</span>
+			<span class="text-success fs-5 fw-bold">{{ day }}</span>
+			<span class="mx-1 fs-5">{{ month }}</span>
+			<span class="mx-2 fw-light">{{ yearDay }}</span>
 		</div>
 
 		<div class="entry-container-description">
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-			vitae alias sint quasi pariatur molestias obcaecati, dolorem, quia
-			aspernatur voluptates eum dolores. Iure fuga dicta voluptatem
-			laudantium adipisci, eos officia.
+			{{ shortText }}
 		</div>
 	</div>
 </template>
 
 <script>
+import getCustomDate from "@/modules/daybook/helpers/getCustomDate";
+
 export default {
 	name: "EntryComponent",
+	props: {
+		entry: {
+			type: Object,
+			required: true,
+		},
+	},
+	computed: {
+		shortText() {
+			return this.entry.text.length > 130
+				? `${this.entry.text.substring(0, 130)}...`
+				: this.entry.text;
+		},
+		day() {
+			const { day } = getCustomDate(this.entry.date);
+
+			return day;
+		},
+		month() {
+			const { month } = getCustomDate(this.entry.date);
+
+			return month;
+		},
+		yearDay() {
+			const { yearDay } = getCustomDate(this.entry.date);
+
+			return yearDay;
+		},
+	},
 };
 </script>
 
