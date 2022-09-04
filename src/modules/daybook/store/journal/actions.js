@@ -20,8 +20,6 @@ export const loadEntries = async ({ commit }) => {
 export const updateEntry = async ({ commit }, entry) => {
 	const { date, id, picture, text } = entry;
 
-	console.log({ picture });
-
 	await journalApi.put(`/entries/${id}.json`, {
 		date,
 		picture,
