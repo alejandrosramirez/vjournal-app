@@ -3,7 +3,7 @@
 		<h1 class="align-self-center">NoEntrySelected</h1>
 	</div>
 
-	<Fab />
+	<Fab @on:click="createEntry" />
 </template>
 
 <script>
@@ -12,8 +12,18 @@ import { defineAsyncComponent } from "vue";
 export default {
 	name: "NoEntrySelectedView",
 	components: {
-		Fab: defineAsyncComponent(() => import("@/modules/daybook/components/FabComponent.vue")),
-	}
+		Fab: defineAsyncComponent(() =>
+			import("@/modules/daybook/components/FabComponent.vue")
+		),
+	},
+	methods: {
+		async createEntry() {
+			this.$router.push({
+				name: "daybook-entry-selected",
+				params: { id: "new" },
+			});
+		},
+	},
 };
 </script>
 

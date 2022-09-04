@@ -9,6 +9,21 @@
 			/>
 		</div>
 
+		<div class="mt-2 d-flex flex-column">
+			<button
+				class="btn btn-primary mx-3"
+				@click="
+					$router.push({
+						name: 'daybook-entry-selected',
+						params: { id: 'new' },
+					})
+				"
+			>
+				<div class="fa fa-plus-circle"></div>
+				Nueva entrada
+			</button>
+		</div>
+
 		<div class="entry-list-scrollarea">
 			<Entry
 				v-for="entry in entriesByTerm"
